@@ -7,31 +7,33 @@
 </head>
 <body>
 
-	<h1>Vics & Vols</h1>
+	<h1 id="page-title">Vics & Vols</h1>
 
-	<div class="form-container">
-		<h2>Victim Entry</h2>
-		<form>
-			Name: <input type="text" name="name"><br>
-			Phone: <input type="text" name="phone"><br>
-			Street: <input type="text" name="street"><br>
-			<input type="submit" value="Submit" onclick="getInfo(this.form, victims); addRow();">
-		</form>
+	<div class="input">
+		<div class="form-container">
+			<h2>Victim Entry</h2>
+			<form id="victim-form">
+				Name: <input type="text" name="name"><br>
+				Phone: <input type="text" name="phone"><br>
+				Street: <input type="text" name="street"><br>
+				<input type="submit" value="Submit" onclick="getInfo(this.form, victims); addRow('victim-table', victims); return false;">
+			</form>
+		</div>
+
+		<div class="form-container">
+			<h2>Volunteer Entry</h2>
+			<form>
+				Name: <input type="text" name="name"><br>
+				Phone: <input type="text" name="phone"><br>
+				Street: <input type="text" name="street"><br>
+				<input type="submit" value="Submit" onclick="getInfo(this.form, volunteers); addRow('volunteer-table', volunteers); return false;">
+			</form>
+		</div>
 	</div>
 
-	<div class="form-container">
-		<h2>Volunteer Entry</h2>
-		<form>
-			Name: <input type="text" name="name"><br>
-			Phone: <input type="text" name="phone"><br>
-			Street: <input type="text" name="street"><br>
-			<input type="submit" value="Submit">
-		</form>
-	</div>
-
-	<div class="results">
+	<div class="output">
 		<div class="table-container">
-			<table>
+			<table id="victim-table">
 				<h2>Victims</h2>
 				<tr>
 					<th>Name</th>
@@ -39,15 +41,12 @@
 					<th>Street</th>
 				</tr>
 				<tr>
-					<td>John</td>	
-					<td>908 123 4567</td>
-					<td>4th Circle</td>
 				</tr>
 			</table>
 		</div>
 
 		<div class="table-container">
-			<table>
+			<table class="volunteer-container">
 				<h2>Volunteers</h2>
 				<tr>
 					<th>Name</th>
@@ -55,9 +54,6 @@
 					<th>Street</th>
 				</tr>
 				<tr>
-					<td>John</td>	
-					<td>908 123 4567</td>
-					<td>4th Circle</td>
 				</tr>
 			</table>
 		</div>

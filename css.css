@@ -1,6 +1,19 @@
-.form-container {
-  display: inline-block;
-}
+.form-container,
 .table-container {
   display: inline-block;
+  width: 40%;
+  margin: 10px;
+}
+table th,
+table td {
+  margin: 0;
+  border: 1px solid #000;
+}
+.input {
+  width: 75%;
+  margin: auto;
+}
+.output {
+  width: 75%;
+  margin: auto;
 }
