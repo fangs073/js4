@@ -1,60 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
 	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
 	<script src="js4.js"></script>
 	<link rel="stylesheet" href="css.css">
 </head>
-<body>
+<body ng-controller="vicVolController">
 
 	<h1 id="page-title">Vics & Vols</h1>
 
 	<div class="input">
-		<div class="form-container">
-			<h2>Victim Entry</h2>
-			<form id="victim-form">
-				Name: <input type="text" name="name"><br>
-				Phone: <input type="text" name="phone"><br>
-				Street: <input type="text" name="street"><br>
-				<input type="submit" value="Submit" onclick="getInfo(this.form, victims); addRow('victim-table', victims); return false;">
+		<div class="form-container" ng-repeat="status in rosters">
+			<h2>{{status.name}} Entry</h2>
+			<form id="victim-form" ng-submit="status.list.push(status.form); streetAdd(status.form.street, status.streets); matchesCheck();status.form = {}">
+				Name: <input ng-model="status.form.name" type="text" name="name"><br>
+				Phone: <input ng-model="status.form.phone" type="text" name="phone"><br>
+				Street: <input ng-model="status.form.street" type="text" name="street"><br>
+				<input type="submit" value="Submit">
 			</form>
 		</div>
 
-		<div class="form-container">
-			<h2>Volunteer Entry</h2>
-			<form>
-				Name: <input type="text" name="name"><br>
-				Phone: <input type="text" name="phone"><br>
-				Street: <input type="text" name="street"><br>
-				<input type="submit" value="Submit" onclick="getInfo(this.form, volunteers); addRow('volunteer-table', volunteers); return false;">
-			</form>
-		</div>
 	</div>
 
 	<div class="output">
-		<div class="table-container">
+		<div class="table-container" ng-repeat="status in rosters">
 			<table id="victim-table">
-				<h2>Victims</h2>
+				<h2 ng-bind="status.name"></h2>
 				<tr>
 					<th>Name</th>
 					<th>Phone</th>
 					<th>Street</th>
 				</tr>
-				<tr>
-				</tr>
-			</table>
-		</div>
-
-		<div class="table-container">
-			<table class="volunteer-container">
-				<h2>Volunteers</h2>
-				<tr>
-					<th>Name</th>
-					<th>Phone</th>
-					<th>Street</th>
-				</tr>
-				<tr>
-				</tr>
+				<div>
+					<tr ng-repeat="person in status.list">
+						<td ng-class="{matched : matchedStreets.indexOf(person.street) !== -1}" ng-repeat="vals in person" ng-bind="vals"></td>
+					</tr>
+				</div>
 			</table>
 		</div>
 	</div>

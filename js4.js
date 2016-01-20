@@ -1,55 +1,48 @@
-//var vicNum = prompt("How many victims?");
-var volNum = 0;
-var victims = [];
-var volunteers = [];
+angular.module('app', [])
+	.controller('vicVolController', ['$scope', function($scope) {
 
-function alertPing() {
-	alert("Alarum")
-}
+	$scope.matchedStreets = [];
 
-function getInfo (form, destinationArray) {
-	var out = {};
-	out["name"] = form.name.value;
-	out["phone"] = form.phone.value;
-	out["street"] = form.street.value;
-	destinationArray.push(out);
-}
+	$scope.streetAdd = function(streetName, arrToAddTo) {
+		if (arrToAddTo.indexOf(streetName) === -1)
+			arrToAddTo.push(streetName)
+	}
 
-function addRow(tableID, srcArr) {
-	var table = document.getElementById(tableID);
-	var row = table.insertRow(srcArr.length+1);
-	var obj = srcArr[srcArr.length-1];
-	var name = row.insertCell(0);
-	var phone = row.insertCell(1);
-	var street = row.insertCell(2);
-	name.innerHTML = obj.name;
-	phone.innerHTML = obj.phone;
-	street.innerHTML = obj.street;
-}
-
-function createOutput (srcArr) {
-	var out = [];
-	var keys = Object.keys(srcArr[0]);
-	for (var i = srcArr.length - 1; i >= 0; i--) {
-		for (var k = 0; k < keys.length; k++) {
-			out.push(keys[k] + " : " + srcArr[i][keys[k]]);
+	$scope.matchesCheck = function() {
+		var arr = $scope.rosters.victims.streets;
+		var otherArr = $scope.rosters.volunteers.streets;
+		var matches = $scope.matchedStreets;
+		for (var i = 0; i < arr.length; i++) {
+			if (otherArr.indexOf(arr[i]) !== -1 && $scope.matchedStreets.indexOf(arr[i] === -1)) {
+				$scope.matchedStreets.push(arr[i])
+			}
 		};
-	};
+		console.log($scope.matchedStreets)
+	}
 
-	return out.join("\n");
+	$scope.logVics = function() {
+		console.log($scope.rosters.victims.list)
+	}
 
-}
+	$scope.rosters = {
+		victims : {
+			name : 'Victims',
+			list : [
+				// {
+				// 	name: 'John',
+				// 	phone: '555-5555',
+				// 	street: 'oak'
+				// }
+			],
+			form : {},
+			streets : []
+		},
+		volunteers : {
+			name: 'Volunteers',
+			list : [],
+			form : {},
+			streets : []
+		}
+	}
 
-// for (var i = 0; i < vicNum; i++) {
-// 	getInfo(victims);
-// }
-
-//volNum = prompt("How many volunteers?")
-
-// for (var i = 0; i < volNum; i++) {
-// 	getInfo(volunteers)
-// };
-
-
-
-//alert("Victims: "+vicNum +"\n" + "Volunteers: " + volNum + "\n" + createOutput(victims) + "\n" + createOutput(volunteers) )
+}]);
